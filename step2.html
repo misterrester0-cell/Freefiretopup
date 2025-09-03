@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Fire Top-Up - Step 2</title>
+<link rel="stylesheet" href="step2.css">
+</head>
+<body>
+<header>
+  <h1>🔥 Free Fire Top-Up - Step 2 🔥</h1>
+</header>
+
+<section class="step2-form">
+  <form action="https://formspree.io/f/mldwwvny" method="POST" enctype="multipart/form-data">
+    <div class="readonly-info">
+      <p>UID: <span id="uidDisplay"></span></p>
+      <p>Diamond Pack: <span id="packDisplay"></span></p>
+      <p>Payment Method: <span id="methodDisplay"></span></p>
+    </div>
+
+    <input type="text" name="contact" placeholder="WhatsApp Contact" required>
+    <input type="text" name="transaction_id" placeholder="Transaction ID" required>
+    <input type="file" name="payment_screenshot" accept="image/*" required>
+
+    <input type="hidden" name="freefire_uid" id="uidInput">
+    <input type="hidden" name="diamond_pack" id="packInput">
+    <input type="hidden" name="payment_method" id="methodInput">
+
+    <div class="form-buttons">
+      <button type="button" onclick="goBack()">Cancel</button>
+      <button type="submit">Submit Order</button>
+    </div>
+  </form>
+</section>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const uid = params.get('uid');
+const pack = params.get('pack');
+const method = params.get('method');
+
+if (!uid || !pack || !method) {
+  alert("Missing data, returning to Step 1");
+  window.location.href = "index.html";
+}
+
+document.getElementById('uidDisplay').innerText = uid;
+document.getElementById('packDisplay').innerText = pack;
+document.getElementById('methodDisplay').innerText = method;
+
+document.getElementById('uidInput').value = uid;
+document.getElementById('packInput').value = pack;
+document.getElementById('methodInput').value = method;
+
+function goBack() {
+  window.location.href = `index.html?uid=${encodeURIComponent(uid)}&pack=${encodeURIComponent(pack)}&method=${encodeURIComponent(method)}`;
+}
+</script>
+</body>
+</html>

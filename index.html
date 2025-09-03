@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Fire Top-Up</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🔥 Free Fire Diamond Top-Up 🔥</h1>
+    <p>Choose your pack & get instant diamonds</p>
+  </header>
+
+  <!-- Diamond Packs Section -->
+  <section class="diamond-packs">
+    <h2>Select Your Diamond Pack</h2>
+    <div class="packs-container">
+      <div class="pack-card">
+        <h3>115 💎</h3>
+        <p>Price: 110 NPR</p>
+        <button onclick="selectPack('115 Diamonds - 110 NPR')">Order Now</button>
+      </div>
+      <div class="pack-card">
+        <h3>240 💎</h3>
+        <p>Price: 210 NPR</p>
+        <button onclick="selectPack('240 Diamonds - 210 NPR')">Order Now</button>
+      </div>
+      <div class="pack-card">
+        <h3>355 💎</h3>
+        <p>Price: 335 NPR</p>
+        <button onclick="selectPack('355 Diamonds - 335 NPR')">Order Now</button>
+      </div>
+      <div class="pack-card">
+        <h3>2200 💎 + 330 Bonus</h3>
+        <p>Price: 2200 NPR</p>
+        <button onclick="selectPack('2200 Diamonds + 330 Bonus - 2200 NPR')">Order Now</button>
+      </div>
+      <div class="pack-card">
+        <h3>Weekly 💎</h3>
+        <p>Price: 210 NPR</p>
+        <button onclick="selectPack('Weekly - 210 NPR')">Order Now</button>
+      </div>
+      <div class="pack-card">
+        <h3>Monthly 💎</h3>
+        <p>Price: 1050 NPR</p>
+        <button onclick="selectPack('Monthly - 1050 NPR')">Order Now</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Order Form -->
+  <section class="form-section">
+    <h2>Fill Your Details</h2>
+    <form id="step1Form">
+      <label for="uid">Free Fire UID</label>
+      <input type="text" id="uid" placeholder="Enter your Free Fire UID" required>
+
+      <label for="diamond-pack">Diamond Pack</label>
+      <select id="diamond-pack" required>
+        <option value="">-- Select Pack --</option>
+        <option value="115 Diamonds - 110 NPR">115 Diamonds - 110 NPR</option>
+        <option value="240 Diamonds - 210 NPR">240 Diamonds - 210 NPR</option>
+        <option value="355 Diamonds - 335 NPR">355 Diamonds - 335 NPR</option>
+        <option value="2200 Diamonds + 330 Bonus - 2200 NPR">2200 Diamonds + 330 Bonus - 2200 NPR</option>
+        <option value="Weekly - 210 NPR">Weekly - 210 NPR</option>
+        <option value="Monthly - 1050 NPR">Monthly - 1050 NPR</option>
+      </select>
+
+      <label for="platform">Payment Platform</label>
+      <select id="platform" required onchange="showQR()">
+        <option value="">-- Choose Platform --</option>
+        <option value="Khalti">Khalti</option>
+        <option value="eSewa">eSewa</option>
+        <option value="Bank">Bank</option>
+      </select>
+
+      <!-- QR Image -->
+      <div id="qrContainer" style="display:none; text-align:center; margin-top:15px;">
+        <img id="qrImage" src="" alt="Payment QR" style="max-width:200px; border:2px solid #ff4500; border-radius:12px;">
+      </div>
+
+      <button type="button" onclick="goToStep2()">Order Now</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>⚡ Safe & Fast Free Fire Top-Up | Powered by Formspree</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    function selectPack(pack) {
+      document.getElementById("diamond-pack").value = pack;
+      document.querySelector(".form-section").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function showQR() {
+      const platform = document.getElementById('platform').value;
+      const qr = document.getElementById('qrContainer');
+      const qrImg = document.getElementById('qrImage');
+
+      if(platform === "Khalti") qrImg.src = "pic1.jpeg";
+      else if(platform === "eSewa") qrImg.src = "pic2.jpeg";
+      else if(platform === "Bank") qrImg.src = "pic3.jpeg";
+      else qr.style.display = "none";
+
+      qr.style.display = platform ? "block" : "none";
+    }
+
+    function goToStep2() {
+      const uid = encodeURIComponent(document.getElementById('uid').value);
+      const pack = encodeURIComponent(document.getElementById('diamond-pack').value);
+      const method = encodeURIComponent(document.getElementById('platform').value);
+
+      if(!uid || !pack || !method){
+        alert("Please fill all fields");
+        return;
+      }
+
+      window.location.href = `step2.html?uid=${uid}&pack=${pack}&method=${method}`;
+    }
+  </script>
+</body>
+</html>
